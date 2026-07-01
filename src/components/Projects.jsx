@@ -95,29 +95,47 @@ export default function Projects() {
     }, []);
 
     // Measure viewport and card dimensions for pixel-perfect centering
-    useEffect(() => {
-        const updateDims = () => {
-            if (!trackRef.current) return;
-            const track = trackRef.current;
-            const viewportWidth = track.parentElement ? track.parentElement.getBoundingClientRect().width : window.innerWidth;
-            
-            const cardEl = track.children[0];
-            if (!cardEl) return;
-            
-            const cardWidth = cardEl.offsetWidth; // Use layout width (unaffected by scale transforms)
-            const gap = parseFloat(window.getComputedStyle(track).gap) || 40;
-            const padding = Math.max(20, (viewportWidth - cardWidth) / 2);
-            
-            setDimensions({ cardWidth, gap, padding });
-        };
+    const updateDims = () => {
+        if (!trackRef.current) return;
+        const track = trackRef.current;
+        const viewportWidth = track.parentElement ? track.parentElement.getBoundingClientRect().width : window.innerWidth;
+        
+        const cardEl = track.children[0];
+        if (!cardEl) return;
+        
+        const cardWidth = cardEl.offsetWidth; // Use layout width (unaffected by scale transforms)
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 40;
+        const padding = Math.max(20, (viewportWidth - cardWidth) / 2);
+        
+        setDimensions({ cardWidth, gap, padding });
+    };
 
+    // Measure viewport and card dimensions with robust resize & mutation observers
+    useEffect(() => {
         updateDims();
-        const timer = setTimeout(updateDims, 300);
+        const timer1 = setTimeout(updateDims, 300);
+        const timer2 = setTimeout(updateDims, 1200);
+        const timer3 = setTimeout(updateDims, 2400); // After loader completes
         
         window.addEventListener('resize', updateDims);
+        
+        let resizeObserver;
+        const track = trackRef.current;
+        if (track && track.children[0]) {
+            resizeObserver = new ResizeObserver(() => {
+                updateDims();
+            });
+            resizeObserver.observe(track.children[0]);
+        }
+
         return () => {
-            clearTimeout(timer);
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+            clearTimeout(timer3);
             window.removeEventListener('resize', updateDims);
+            if (resizeObserver) {
+                resizeObserver.disconnect();
+            }
         };
     }, []);
 
@@ -240,13 +258,13 @@ export default function Projects() {
             const fract = x - base;
             
             let snappedFract = fract;
-            if (fract < 0.44) {
+            if (fract < 0.47) {
                 snappedFract = 0;
-            } else if (fract > 0.56) {
+            } else if (fract > 0.53) {
                 snappedFract = 1;
             } else {
-                // Map transition range smoothly (middle 12% of scroll distance)
-                const t = (fract - 0.44) / 0.12;
+                // Map transition range smoothly (middle 6% of scroll distance)
+                const t = (fract - 0.47) / 0.06;
                 snappedFract = t * t * (3 - 2 * t);
             }
             
@@ -271,7 +289,7 @@ export default function Projects() {
             const diff = targetProgressRef.current - currentProgressRef.current;
             
             if (Math.abs(diff) > 0.0001) {
-                currentProgressRef.current += diff * 0.14; // Faster catch up rate to reduce scrolling lag (was 0.075)
+                currentProgressRef.current += diff * 0.22; // Instant catch up rate to keep cards centered immediately (was 0.14)
                 setScrollProgress(currentProgressRef.current);
             } else if (currentProgressRef.current !== targetProgressRef.current) {
                 currentProgressRef.current = targetProgressRef.current;
