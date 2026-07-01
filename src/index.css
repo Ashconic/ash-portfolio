@@ -2673,6 +2673,10 @@ body.menu-lock {
 
 /* --- Projects Scroll Responsive Media Queries --- */
 @media (max-width: 1024px) {
+    .projects-scroll-section {
+        height: 300vh !important; /* Shrunk runway on mobile for fast, responsive card snaps */
+    }
+
     /* Keep Projects section sticky and horizontally scroll-translating on mobile/tablet */
     .projects-viewport-mask {
         overflow: hidden;

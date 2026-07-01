@@ -61,25 +61,64 @@ export default function Projects() {
         return () => observer.disconnect();
     }, []);
 
+    // Handle gesture-to-scroll translations (both trackpad wheel and touchscreen swipes)
     useEffect(() => {
         const mask = maskRef.current;
         if (!mask) return;
 
+        // 1. Mouse wheel mapping on smaller viewports
         const handleWheel = (e) => {
             if (window.innerWidth >= 1024) return;
             if (e.deltaY !== 0) {
-                const canScrollRight = mask.scrollLeft < (mask.scrollWidth - mask.clientWidth - 1);
-                const canScrollLeft = mask.scrollLeft > 1;
+                window.scrollBy(0, e.deltaY);
+                e.preventDefault();
+            }
+        };
 
-                if ((e.deltaY > 0 && canScrollRight) || (e.deltaY < 0 && canScrollLeft)) {
-                    mask.scrollLeft += e.deltaY;
+        // 2. Touch swipe mapping on smaller viewports (swiping left/right translates to vertical scroll)
+        let startX = 0;
+        let startY = 0;
+
+        const handleTouchStart = (e) => {
+            if (window.innerWidth >= 1024) return;
+            if (e.touches.length !== 1) return;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        };
+
+        const handleTouchMove = (e) => {
+            if (window.innerWidth >= 1024) return;
+            if (e.touches.length !== 1) return;
+            
+            const currentX = e.touches[0].clientX;
+            const currentY = e.touches[0].clientY;
+            
+            const deltaX = currentX - startX;
+            const deltaY = currentY - startY;
+
+            // If the swipe is primarily horizontal, convert it to vertical page scroll
+            if (Math.abs(deltaX) > Math.abs(deltaY) * 1.1) {
+                // Swiping left (negative deltaX) scrolls down (card moves left)
+                // Swiping right (positive deltaX) scrolls up (card moves right)
+                window.scrollBy(0, -deltaX * 1.4);
+                startX = currentX;
+                startY = currentY;
+                
+                if (e.cancelable) {
                     e.preventDefault();
                 }
             }
         };
 
         mask.addEventListener('wheel', handleWheel, { passive: false });
-        return () => mask.removeEventListener('wheel', handleWheel);
+        mask.addEventListener('touchstart', handleTouchStart, { passive: true });
+        mask.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+        return () => {
+            mask.removeEventListener('wheel', handleWheel);
+            mask.removeEventListener('touchstart', handleTouchStart);
+            mask.removeEventListener('touchmove', handleTouchMove);
+        };
     }, []);
 
     // Initialize trailer states
