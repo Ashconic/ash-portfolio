@@ -104,7 +104,7 @@ export default function Projects() {
             const cardEl = track.children[0];
             if (!cardEl) return;
             
-            const cardWidth = cardEl.getBoundingClientRect().width;
+            const cardWidth = cardEl.offsetWidth; // Use layout width (unaffected by scale transforms)
             const gap = parseFloat(window.getComputedStyle(track).gap) || 40;
             const padding = Math.max(20, (viewportWidth - cardWidth) / 2);
             

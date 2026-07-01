@@ -2683,9 +2683,9 @@ body.menu-lock {
 
     .projects-slider-track {
         gap: 1.5rem; /* Shrunk spacing gap between cards on mobile */
-        height: 58vh;
-        min-height: 480px;
-        max-height: 600px;
+        height: 64vh;
+        min-height: 520px;
+        max-height: 640px;
         transform-style: flat;
     }
 
@@ -2699,17 +2699,38 @@ body.menu-lock {
     }
     
     .project-card-visual {
-        height: 180px;
+        height: 140px; /* Reduced from 180px to save vertical space */
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .project-card-details {
-        padding: 1.25rem;
+        padding: 1.1rem; /* Compact padding */
+    }
+
+    .details-header {
+        margin-bottom: 0.3rem;
     }
     
     .details-title {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .details-desc {
+        font-size: 0.8rem;
+        line-height: 1.45;
+        margin-bottom: 0.5rem;
+    }
+
+    .details-tags {
+        margin-bottom: 0.6rem;
+        gap: 0.3rem;
+    }
+
+    .project-tag-badge {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.5rem;
     }
     
     .projects-hud-footer {
@@ -2723,11 +2744,13 @@ body.menu-lock {
     }
     .details-actions {
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.5rem;
     }
     .details-btn {
         width: 100%;
         justify-content: center;
+        padding: 0.6rem 1rem;
+        font-size: 0.7rem;
     }
 }
 
