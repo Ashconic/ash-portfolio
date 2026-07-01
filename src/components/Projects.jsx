@@ -240,13 +240,13 @@ export default function Projects() {
             const fract = x - base;
             
             let snappedFract = fract;
-            if (fract < 0.38) {
+            if (fract < 0.44) {
                 snappedFract = 0;
-            } else if (fract > 0.62) {
+            } else if (fract > 0.56) {
                 snappedFract = 1;
             } else {
-                // Map transition range smoothly (middle 24% of scroll distance)
-                const t = (fract - 0.38) / 0.24;
+                // Map transition range smoothly (middle 12% of scroll distance)
+                const t = (fract - 0.44) / 0.12;
                 snappedFract = t * t * (3 - 2 * t);
             }
             
@@ -271,7 +271,7 @@ export default function Projects() {
             const diff = targetProgressRef.current - currentProgressRef.current;
             
             if (Math.abs(diff) > 0.0001) {
-                currentProgressRef.current += diff * 0.075; // Smooth catch up rate
+                currentProgressRef.current += diff * 0.14; // Faster catch up rate to reduce scrolling lag (was 0.075)
                 setScrollProgress(currentProgressRef.current);
             } else if (currentProgressRef.current !== targetProgressRef.current) {
                 currentProgressRef.current = targetProgressRef.current;
