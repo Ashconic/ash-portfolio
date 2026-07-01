@@ -2677,6 +2677,11 @@ body.menu-lock {
         height: 300vh !important; /* Shrunk runway on mobile for fast, responsive card snaps */
     }
 
+    .projects-sticky-container {
+        padding: 2.2rem 0 0.8rem 0 !important; /* Tightened padding on mobile to save vertical screen space */
+        height: 100vh;
+    }
+
     /* Keep Projects section sticky and horizontally scroll-translating on mobile/tablet */
     .projects-viewport-mask {
         overflow: hidden;
@@ -2687,9 +2692,9 @@ body.menu-lock {
 
     .projects-slider-track {
         gap: 1.5rem; /* Shrunk spacing gap between cards on mobile */
-        height: 66vh;
-        min-height: 540px; /* Increased from 520px to add bottom safety space */
-        max-height: 660px;
+        height: 60vh;
+        min-height: 450px; /* Reduced from 540px to fit mobile viewport masks perfectly without overflow */
+        max-height: 520px;
         transform-style: flat;
     }
 
@@ -2703,38 +2708,38 @@ body.menu-lock {
     }
     
     .project-card-visual {
-        height: 130px; /* Reduced from 140px to free up vertical space */
+        height: 120px; /* Reduced to save visual space */
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .project-card-details {
-        padding: 1.1rem 1.1rem 1.35rem 1.1rem; /* Compact padding with extra bottom buffer */
+        padding: 1rem 1.1rem 1.25rem 1.1rem; /* Compact padding */
     }
 
     .details-header {
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.25rem;
     }
     
     .details-title {
-        font-size: 1.15rem;
-        margin-bottom: 0.3rem;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
     }
 
     .details-desc {
-        font-size: 0.8rem;
-        line-height: 1.45;
-        margin-bottom: 0.4rem; /* Tightened margin */
+        font-size: 0.78rem;
+        line-height: 1.4;
+        margin-bottom: 0.35rem; /* Tightened margin */
     }
 
     .details-tags {
-        margin-bottom: 0.4rem; /* Tightened margin */
-        gap: 0.3rem;
+        margin-bottom: 0.35rem; /* Tightened margin */
+        gap: 0.25rem;
     }
 
     .project-tag-badge {
-        font-size: 0.6rem;
-        padding: 0.2rem 0.5rem;
+        font-size: 0.58rem;
+        padding: 0.15rem 0.45rem;
     }
     
     .projects-hud-footer {
