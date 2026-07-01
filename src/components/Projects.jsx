@@ -139,11 +139,21 @@ export default function Projects() {
         const track = trackRef.current;
         const viewportWidth = track.parentElement ? track.parentElement.getBoundingClientRect().width : window.innerWidth;
         
-        const cardEl = track.children[0];
-        if (!cardEl) return;
+        let cardWidth = 0;
+        let gap = 0;
         
-        const cardWidth = cardEl.offsetWidth; // Use layout width (unaffected by scale transforms)
-        const gap = parseFloat(window.getComputedStyle(track).gap) || 40;
+        // Compute layout dimensions mathematically to prevent browser reflow delays or scaling errors
+        if (viewportWidth < 480) {
+            cardWidth = Math.min(500, viewportWidth * 0.85); // Matches index.css: 85vw
+            gap = 24; // Matches index.css: 1.5rem (assuming 16px root font size)
+        } else if (viewportWidth < 1024) {
+            cardWidth = Math.min(500, viewportWidth * 0.80); // Matches index.css: 80vw
+            gap = 24; // Matches index.css: 1.5rem
+        } else {
+            cardWidth = Math.min(820, viewportWidth * 0.74); // Matches index.css: 74vw
+            gap = 72; // Matches index.css: 4.5rem
+        }
+        
         const padding = Math.max(20, (viewportWidth - cardWidth) / 2);
         
         setDimensions({ cardWidth, gap, padding });
