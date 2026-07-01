@@ -4132,3 +4132,96 @@ body.menu-lock {
         text-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
     }
 }
+
+/* --- Global Mobile Optimization Overrides (For Perfect Responsive Fitting) --- */
+@media (max-width: 480px) {
+    /* Prevent any unwanted horizontal overflows or side-scroll wobbling */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+
+    .container {
+        padding: 0 1.25rem !important;
+    }
+
+    .section {
+        padding: 4rem 0 !important;
+    }
+
+    /* Section titles clamp to prevent clipping */
+    .section-title {
+        font-size: 2rem !important;
+        letter-spacing: -0.02em !important;
+    }
+
+    /* Hero section clamping */
+    .hero-title {
+        font-size: 2.1rem !important;
+        line-height: 1.15 !important;
+        letter-spacing: -0.03em !important;
+    }
+    
+    .hero-desc {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+        margin-top: 1.25rem !important;
+        padding: 0 0.5rem;
+    }
+
+    .hero-cta {
+        width: 100%;
+        gap: 0.75rem !important;
+    }
+
+    .hero-cta .btn {
+        width: 100% !important;
+        text-align: center;
+        justify-content: center;
+    }
+
+    /* About section layout adjustments */
+    .about-grid {
+        gap: 2.5rem !important;
+    }
+
+    .about-visual-column {
+        max-width: 320px !important;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    .stat-card {
+        padding: 1.25rem !important;
+    }
+
+    /* Skills block layout adjustments */
+    .skills-layout-wrapper {
+        padding: 0 1rem !important;
+    }
+
+    /* Projects slider overrides */
+    .projects-slider-card.horizontal-card {
+        width: 82vw !important;
+        margin-right: 1rem !important;
+    }
+
+    /* Contact Success Screen */
+    .contact-success-screen {
+        padding: 2rem 1rem !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.85rem !important;
+    }
+    
+    .section-title {
+        font-size: 1.8rem !important;
+    }
+}

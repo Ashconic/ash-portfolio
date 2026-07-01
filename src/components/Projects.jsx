@@ -575,7 +575,7 @@ export default function Projects() {
 
 
                 {/* Horizontal track view container */}
-                <div className="projects-viewport-mask" ref={maskRef} data-lenis-prevent style={{ position: 'relative' }}>
+                <div className="projects-viewport-mask" ref={maskRef} data-lenis-prevent={window.innerWidth >= 1024 ? "true" : undefined} style={{ position: 'relative' }}>
                     
                     {/* Retro cloud API sync loading layer */}
                     {(!hasFetched || isFetching) && (
