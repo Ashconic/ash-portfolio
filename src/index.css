@@ -82,7 +82,7 @@ html.lenis, html.lenis body {
 body {
     font-family: var(--font-body);
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: clip; /* Fix: changed hidden to clip to preserve position: sticky containment on mobile Safari/Chrome */
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 }
@@ -2673,53 +2673,29 @@ body.menu-lock {
 
 /* --- Projects Scroll Responsive Media Queries --- */
 @media (max-width: 1024px) {
-    .projects-scroll-section {
-        height: auto !important; /* Disable vertical scroll pinning on small screens */
-    }
-    
-    .projects-sticky-container {
-        position: relative;
-        height: auto;
-        padding: 5rem 0;
-    }
-    
+    /* Keep Projects section sticky and horizontally scroll-translating on mobile/tablet */
     .projects-viewport-mask {
-        overflow-x: auto;
-        justify-content: flex-start;
+        overflow: hidden;
         width: 100%;
-        padding: 2rem 0;
-        scrollbar-width: none;
         perspective: none;
         transform-style: flat;
     }
 
-    .projects-viewport-mask::-webkit-scrollbar {
-        display: none;
-    }
-
     .projects-slider-track {
-        display: flex;
-        flex-direction: row;
-        width: auto;
-        height: auto;
-        max-height: none;
-        padding: 0 1.5rem;
+        gap: 1.5rem; /* Shrunk spacing gap between cards on mobile */
+        height: 58vh;
+        min-height: 480px;
+        max-height: 600px;
         transform-style: flat;
-        transform: none !important;
     }
 
     .projects-slider-card.horizontal-card {
-        position: relative; /* Release from absolute stacking */
+        grid-template-columns: 1fr; /* Stack layout vertically inside card */
         width: 80vw;
-        max-width: 580px;
-        height: auto;
-        max-height: none;
-        grid-template-columns: 1fr; /* Stack layout vertically */
-        opacity: 1 !important;
-        transform: none !important;
-        pointer-events: auto !important;
-        margin-right: 2rem;
+        max-width: 500px;
+        height: 100%;
         flex-shrink: 0;
+        transform-style: flat;
     }
     
     .project-card-visual {
@@ -2729,15 +2705,11 @@ body.menu-lock {
     }
     
     .project-card-details {
-        padding: 1.5rem;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: none !important;
-        filter: none !important;
+        padding: 1.25rem;
     }
     
     .details-title {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
     }
     
     .projects-hud-footer {
@@ -2748,7 +2720,6 @@ body.menu-lock {
 @media (max-width: 480px) {
     .projects-slider-card.horizontal-card {
         width: 85vw;
-        margin-right: 1.25rem;
     }
     .details-actions {
         flex-direction: column;
@@ -4137,7 +4108,7 @@ body.menu-lock {
 @media (max-width: 480px) {
     /* Prevent any unwanted horizontal overflows or side-scroll wobbling */
     html, body {
-        overflow-x: hidden;
+        overflow-x: clip; /* Fix: changed hidden to clip to preserve position: sticky containment on mobile Safari/Chrome */
         width: 100%;
         position: relative;
     }
