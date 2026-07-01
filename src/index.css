@@ -2687,9 +2687,9 @@ body.menu-lock {
 
     .projects-slider-track {
         gap: 1.5rem; /* Shrunk spacing gap between cards on mobile */
-        height: 64vh;
-        min-height: 520px;
-        max-height: 640px;
+        height: 66vh;
+        min-height: 540px; /* Increased from 520px to add bottom safety space */
+        max-height: 660px;
         transform-style: flat;
     }
 
@@ -2703,13 +2703,13 @@ body.menu-lock {
     }
     
     .project-card-visual {
-        height: 140px; /* Reduced from 180px to save vertical space */
+        height: 130px; /* Reduced from 140px to free up vertical space */
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .project-card-details {
-        padding: 1.1rem; /* Compact padding */
+        padding: 1.1rem 1.1rem 1.35rem 1.1rem; /* Compact padding with extra bottom buffer */
     }
 
     .details-header {
@@ -2724,11 +2724,11 @@ body.menu-lock {
     .details-desc {
         font-size: 0.8rem;
         line-height: 1.45;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem; /* Tightened margin */
     }
 
     .details-tags {
-        margin-bottom: 0.6rem;
+        margin-bottom: 0.4rem; /* Tightened margin */
         gap: 0.3rem;
     }
 
